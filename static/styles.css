@@ -1,0 +1,375 @@
+:root {
+    --bg-color: #f5f5dc; /* beige */
+    --card-bg: rgba(255, 209, 220, 0.85); /* baby pink */
+    --border-color: #1a1a1a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #333333;
+    --accent-blue: #38bdf8;
+    --accent-purple: #818cf8;
+    --glass-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Dynamic Background Elements */
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--bg-color) 0%, #ffd1dc 100%);
+    animation: none;
+}
+
+/* Satellite Animation */
+.satellite {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2.5rem;
+    z-index: 100;
+    pointer-events: none;
+    animation: floatSatellite 4s ease-in-out infinite alternate;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,1));
+}
+
+@keyframes floatSatellite {
+    0% { transform: translateY(0px) rotate(-10deg); }
+    100% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* Glassmorphism Utilities - Retro styling */
+.glass-panel {
+    background: var(--card-bg);
+    border: 4px solid var(--border-color);
+    box-shadow: var(--glass-shadow);
+    border-radius: 0;
+}
+
+/* Header */
+header {
+    margin: 20px;
+    padding: 15px 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 3px 3px 0 #fff;
+    line-height: 1.5;
+}
+
+/* Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 0;
+    font-size: 0.6rem;
+    background: #fff;
+    border: 3px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 4px 4px 0px rgba(0,0,0,1);
+}
+
+.status-badge:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px rgba(0,0,0,1);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 0; /* Square dot for pixel art */
+}
+
+.dot.red { background-color: #ef4444; border: 2px solid #000; }
+.dot.green { background-color: #10b981; border: 2px solid #000; }
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    border: 4px solid #000;
+    padding: 10px;
+    position: absolute;
+    z-index: 10;
+    top: 130%;
+    left: 50%;
+    margin-left: -125px;
+    font-size: 0.6rem;
+    line-height: 1.5;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    padding: 0 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    padding: 24px;
+    background: var(--card-bg);
+}
+
+.card h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* Temperature Card */
+.pixel-emoji {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(4px 4px 0 #000); /* Adds a sharp black shadow to emojis rendering them blockier */
+    animation: moveLeftRight 4s linear infinite alternate;
+}
+
+@keyframes moveLeftRight {
+    0% { transform: translateX(-30px); }
+    100% { transform: translateX(30px); }
+}
+
+.main-temp {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+    text-shadow: 4px 4px 0px #fff;
+}
+
+.sub-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #fff;
+    padding: 10px;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px rgba(0,0,0,1);
+    flex-grow: 1;
+}
+
+.metric .label {
+    font-size: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.metric .value {
+    font-size: 0.8rem;
+}
+
+/* Health Card */
+.health-card {
+    position: relative;
+}
+
+.health-gauge h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    text-shadow: 2px 2px 0px #000;
+    color: #fff;
+}
+
+.feels-like {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.health-message {
+    font-size: 0.7rem;
+    line-height: 1.8;
+    background: #fff;
+    padding: 15px;
+    border: 3px solid #000;
+    box-shadow: inset 4px 4px 0 rgba(0,0,0,0.1);
+}
+
+/* Search Card */
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+#country-search {
+    flex-grow: 1;
+    padding: 10px;
+    border: 3px solid #000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    box-shadow: inset 3px 3px 0 rgba(0,0,0,0.1);
+}
+
+#search-btn {
+    background: var(--accent-blue);
+    color: #fff;
+    border: 3px solid #000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    text-shadow: 2px 2px 0 #000;
+}
+
+#search-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 #000;
+}
+
+#result-location {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--accent-purple);
+    text-shadow: 2px 2px 0 #fff;
+    margin-bottom: 20px !important;
+}
+
+#search-results {
+    text-align: center;
+}
+
+#search-emoji {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    margin: 20px 0;
+    display: inline-block;
+    filter: drop-shadow(4px 4px 0 #000);
+    animation: moveLeftRight 4s linear infinite alternate;
+}
+
+/* Chart Section */
+.chart-section {
+    width: 100%;
+    min-height: 400px;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.chart-header h2 {
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    background: #fff;
+    border: 4px solid #000;
+    padding: 10px;
+}
+
+/* Toggle Switch - Retro Checkbox Style instead of round toggle */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    display: grid;
+    place-content: center;
+}
+
+.toggle-switch input::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #ff4081;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+}
+
+.toggle-switch input:checked::before {
+    transform: scale(1);
+}
+
+/* Hide sliders from standard UI */
+.slider {
+    display: none;
+}
+
+.toggle-label {
+    font-size: 0.6rem;
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .sub-metrics {
+        flex-direction: column;
+    }
+}

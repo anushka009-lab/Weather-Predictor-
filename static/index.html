@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wireless Weather Station Dashboard">
+    <title>Wireless Weather Station</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/styles.css?v=3">
+</head>
+<body>
+    <div class="app-background"></div>
+    
+    <!-- Moving Satellite -->
+    <div class="satellite">🛰️</div>
+    
+    <header class="glass-panel">
+        <div class="header-content">
+            <h1>Weather Station</h1>
+            <div id="geofence-status" class="status-badge tooltip">
+                <span class="dot red"></span> Гео Alerts Off
+                <span class="tooltiptext">Click to enable location alerts</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Current Weather Grid -->
+        <section class="grid-container">
+            <!-- Main Temperature -->
+            <div class="card glass-panel temp-card">
+                <h2>Current Conditions</h2>
+                <div id="weather-emoji" class="pixel-emoji">☀️</div>
+                <div class="main-temp">
+                    <span id="current-temp">--</span>°C
+                </div>
+                <div class="sub-metrics">
+                    <div class="metric">
+                        <span class="label">Humidity</span>
+                        <span id="current-hum" class="value">--%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Wind Speed</span>
+                        <span id="current-wind" class="value">-- mph</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Rainfall</span>
+                        <span id="current-rain" class="value">-- in</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health & Activity Index -->
+            <div class="card glass-panel health-card" id="health-card">
+                <h2>Health & Activity Index</h2>
+                <div class="health-gauge">
+                    <h3 id="health-status">Loading...</h3>
+                    <div class="feels-like">
+                        Feels Like: <span id="feels-like-temp">--</span>°C
+                    </div>
+                    <p id="health-message" class="health-message">
+                        Calculating metrics...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Global Weather Search -->
+            <div class="card glass-panel search-card" id="search-card">
+                <h2>Global Weather Scanner</h2>
+                <div class="search-box">
+                    <input type="text" id="country-search" placeholder="Enter City or Country...">
+                    <button id="search-btn">Scan</button>
+                </div>
+                <div id="search-results" style="display: none; margin-top: 15px;">
+                    <div id="search-emoji" class="pixel-emoji"></div>
+                    <h3 id="result-location" style="margin-bottom:10px; font-size:1rem;">Location</h3>
+                    <div class="sub-metrics">
+                        <div class="metric">
+                            <span class="label">Temp</span>
+                            <span class="value"><span id="result-temp">--</span>°C</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Time</span>
+                            <span class="value" id="result-time">--:--</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Status</span>
+                            <span class="value" id="result-cond">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historical Time Traveler Chart -->
+        <section class="chart-section card glass-panel">
+            <div class="chart-header">
+                <h2>Interactive Historical Data</h2>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="compare-yesterday-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label">Compare with Yesterday</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="weatherChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/app.js?v=5"></script>
+    <script src="/static/geofence.js?v=5"></script>
+</body>
+</html>
